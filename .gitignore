@@ -2,7 +2,7 @@
 *.apk
 *.ap_
 
-# Files for the ART/Dalvik VM
+# Files for the Dalvik VM
 *.dex
 
 # Java class files
@@ -11,7 +11,6 @@
 # Generated files
 bin/
 gen/
-out/
 
 # Gradle files
 .gradle/
@@ -32,9 +31,24 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# Intellij
-*.iml
-.idea/workspace.xml
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
 
-# Keystore files
-*.jks
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Signing files
+.signing/
+
+# User-specific configurations
+.idea/
+*.iml
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
