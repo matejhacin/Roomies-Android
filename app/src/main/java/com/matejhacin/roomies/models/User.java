@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("username")
     @Expose
     private String username;
@@ -20,7 +23,7 @@ public class User {
     private String roomName;
     @SerializedName("token")
     @Expose
-    private String token;
+    private String accessToken;
 
     public User(String username, String password, String roomName) {
         this.username = username;
@@ -28,9 +31,19 @@ public class User {
         this.roomName = roomName;
     }
 
-    // MARK: Public
+    public String getAccessToken() {
+        return accessToken;
+    }
 
-    public String getToken() {
-        return token;
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getId() {
+        return id;
     }
 }
