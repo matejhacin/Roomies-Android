@@ -16,4 +16,7 @@ public interface RoomiesService {
     @POST("register")
     Call<User> registerUser(@Body User user, @Query("newRoom") boolean isNewRoom);
 
+    @POST("login")
+    Call<User> loginUser(@Body User user);
+
 }

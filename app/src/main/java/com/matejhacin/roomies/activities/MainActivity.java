@@ -15,16 +15,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TODO: Remove, this is just for testing
-        new UserClient().registerNewUser("test1", "test1", "test2", true, new UserClient.RegistrationListener() {
+        /*new UserClient().registerNewUser("matejtest1", "matejtest1", "matejtest1", true, new UserClient.UserListener() {
             @Override
-            public void onRegistrationSuccess(User user) {
+            public void onSuccess(User user) {
                 int i = 0;
             }
 
             @Override
-            public void onRegistrationFailure() {
+            public void onFailure() {
                 int i = 0;
             }
-        });
+        });*/
+
+        /*new UserClient().loginUser("matejtest1", "matejtest1", "matejtest1", new UserClient.UserListener() {
+            @Override
+            public void onSuccess(User user) {
+                int i = 0;
+            }
+
+            @Override
+            public void onFailure() {
+                int i = 0;
+            }
+        });*/
     }
 }

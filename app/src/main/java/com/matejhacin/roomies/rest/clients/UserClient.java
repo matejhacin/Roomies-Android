@@ -5,8 +5,6 @@ import com.matejhacin.roomies.rest.RCallback;
 import com.matejhacin.roomies.rest.RestClient;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by matejhacin on 22/11/2016.
@@ -16,30 +14,49 @@ public class UserClient {
 
     // MARK: Public
 
-    public void registerNewUser(String username, String password, String roomName, boolean isNewRoom, final RegistrationListener registrationListener) {
+    public void registerNewUser(String username, String password, String roomName, boolean isNewRoom, final UserListener userListener) {
         User newUser = new User(username, password, roomName);
 
         Call<User> call = RestClient.getInstance().roomiesService.registerUser(newUser, isNewRoom);
         call.enqueue(new RCallback<User>() {
             @Override
             public void onSuccess(User responseObject) {
-                if (registrationListener != null)
-                    registrationListener.onRegistrationSuccess(responseObject);
+                if (userListener != null)
+                    userListener.onSuccess(responseObject);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                if (registrationListener != null)
-                    registrationListener.onRegistrationFailure();
+                if (userListener != null)
+                    userListener.onFailure();
+            }
+        });
+    }
+
+    public void loginUser(String username, String password, String roomName, final UserListener userListener) {
+        User newUser = new User(username, password, roomName);
+
+        Call<User> call = RestClient.getInstance().roomiesService.loginUser(newUser);
+        call.enqueue(new RCallback<User>() {
+            @Override
+            public void onSuccess(User responseObject) {
+                if (userListener != null)
+                    userListener.onSuccess(responseObject);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (userListener != null)
+                    userListener.onFailure();
             }
         });
     }
 
     // MARK: Interfaces
 
-    public interface RegistrationListener {
-        void onRegistrationSuccess(User user);
-        void onRegistrationFailure();
+    public interface UserListener {
+        void onSuccess(User user);
+        void onFailure();
     }
 
 }

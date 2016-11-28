@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    @SerializedName("id")
+    @SerializedName("_id")
     @Expose
     private String id;
     @SerializedName("username")
@@ -18,25 +18,29 @@ public class User {
     @SerializedName("password")
     @Expose
     private String password;
-    @SerializedName("roomName")
+    @SerializedName("room")
     @Expose
-    private String roomName;
+    private Room room;
     @SerializedName("token")
     @Expose
     private String accessToken;
 
     public User(String username, String password, String roomName) {
+        this(username, password, new Room(roomName));
+    }
+
+    private User(String username, String password, Room room) {
         this.username = username;
         this.password = password;
-        this.roomName = roomName;
+        this.room = room;
     }
 
     public String getAccessToken() {
         return accessToken;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public Room getRoom() {
+        return room;
     }
 
     public String getUsername() {
