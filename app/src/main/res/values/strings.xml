@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Roomies</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="room_name">Room name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_new_room">Create new room</string>
+    <string name="register">Register</string>
+    <string name="login_message">Use your room account to log in.\nTo create or join a new room, press the add button.</string>
+    <string name="loading_message">Please wait ...</string>
+    <string name="register_message">Create a new room or join an existing one.</string>
+    <string name="error_missing_data">Please check your input!</string>
+    <string name="error_login">Login failed. Please, try again.</string>
+    <string name="error_registration">Registration failed. Please, try again.</string>
 </resources>
