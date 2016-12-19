@@ -17,11 +17,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.matejhacin.roomies.R;
 import com.matejhacin.roomies.models.User;
 import com.matejhacin.roomies.rest.clients.UserClient;
+import com.matejhacin.roomies.rest.interfaces.UserListener;
+import com.matejhacin.roomies.utils.Constants;
 import com.matejhacin.roomies.utils.GeneralUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -85,10 +88,11 @@ public class LoginActivity extends AppCompatActivity {
     private void register() {
         final MaterialDialog loadingDialog = GeneralUtil.getLoadingDialog(this);
         loadingDialog.show();
-        new UserClient().registerNewUser(GeneralUtil.getText(usernameEditText), GeneralUtil.getText(passwordEditText), GeneralUtil.getText(roomNameEditText), newRoomCheckbox.isChecked(), new UserClient.UserListener() {
+        new UserClient().registerNewUser(GeneralUtil.getText(usernameEditText), GeneralUtil.getText(passwordEditText), GeneralUtil.getText(roomNameEditText), newRoomCheckbox.isChecked(), new UserListener() {
             @Override
             public void onSuccess(User user) {
-                // TODO Save user
+                // save user
+                Paper.book().write(Constants.KEY_USER, user);
                 loadingDialog.dismiss();
                 onAuthorizationSuccess();
             }
@@ -104,10 +108,11 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         final MaterialDialog loadingDialog = GeneralUtil.getLoadingDialog(this);
         loadingDialog.show();
-        new UserClient().loginUser(GeneralUtil.getText(usernameEditText), GeneralUtil.getText(passwordEditText), GeneralUtil.getText(roomNameEditText), new UserClient.UserListener() {
+        new UserClient().loginUser(GeneralUtil.getText(usernameEditText), GeneralUtil.getText(passwordEditText), GeneralUtil.getText(roomNameEditText), new UserListener() {
             @Override
             public void onSuccess(User user) {
-                // TODO Save user
+                // save user
+                Paper.book().write(Constants.KEY_USER, user);
                 loadingDialog.dismiss();
                 onAuthorizationSuccess();
             }

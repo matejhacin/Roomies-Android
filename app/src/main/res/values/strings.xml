@@ -13,4 +13,8 @@
     <string name="error_missing_data">Please check your input!</string>
     <string name="error_login">Login failed. Please, try again.</string>
     <string name="error_registration">Registration failed. Please, try again.</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tasks_empty_message">There are no active tasks.\nBe the hero this group needs, and create a new one.</string>
+    <string name="tasks_error_message">Something went wrong!\nUse swipe-to-refresh to try again.</string>
+
 </resources>

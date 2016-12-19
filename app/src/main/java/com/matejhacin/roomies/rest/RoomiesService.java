@@ -1,16 +1,18 @@
 package com.matejhacin.roomies.rest;
 
+import com.matejhacin.roomies.models.Tasks;
 import com.matejhacin.roomies.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
  * Created by matejhacin on 22/11/2016.
  */
-
 public interface RoomiesService {
 
     @POST("register")
@@ -19,4 +21,6 @@ public interface RoomiesService {
     @POST("login")
     Call<User> loginUser(@Body User user);
 
+    @GET("tasks/{roomId}")
+    Call<Tasks> getTasks(@Path("roomId") String roomId);
 }

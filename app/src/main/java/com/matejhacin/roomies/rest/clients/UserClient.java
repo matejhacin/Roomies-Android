@@ -3,6 +3,7 @@ package com.matejhacin.roomies.rest.clients;
 import com.matejhacin.roomies.models.User;
 import com.matejhacin.roomies.rest.RCallback;
 import com.matejhacin.roomies.rest.RestClient;
+import com.matejhacin.roomies.rest.interfaces.UserListener;
 
 import retrofit2.Call;
 
@@ -51,12 +52,4 @@ public class UserClient {
             }
         });
     }
-
-    // MARK: Interfaces
-
-    public interface UserListener {
-        void onSuccess(User user);
-        void onFailure();
-    }
-
 }
