@@ -45,7 +45,7 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
             @Override
             public void onClick(View view) {
                 if (taskCardClickListener != null) {
-                    taskCardClickListener.onDoneClicked(task.getId(), holder.getAdapterPosition());
+                    taskCardClickListener.onDoneClicked(task, holder.getAdapterPosition());
                 }
             }
         });
@@ -53,7 +53,7 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
             @Override
             public void onClick(View view) {
                 if (taskCardClickListener != null) {
-                    taskCardClickListener.onEditClicked(task.getId(), holder.getAdapterPosition());
+                    taskCardClickListener.onEditClicked(task, holder.getAdapterPosition());
                 }
             }
         });

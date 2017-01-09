@@ -1,6 +1,8 @@
 package com.matejhacin.roomies.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +15,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.matejhacin.roomies.R;
 import com.matejhacin.roomies.adapters.TasksRecyclerViewAdapter;
 import com.matejhacin.roomies.interfaces.TaskCardClickListener;
+import com.matejhacin.roomies.models.Task;
 import com.matejhacin.roomies.models.Tasks;
 import com.matejhacin.roomies.models.User;
 import com.matejhacin.roomies.rest.clients.TaskClient;
+import com.matejhacin.roomies.rest.interfaces.ResponseListener;
 import com.matejhacin.roomies.rest.interfaces.TasksListener;
 import com.matejhacin.roomies.utils.Constants;
 import com.matejhacin.roomies.utils.GeneralUtil;
@@ -23,6 +27,7 @@ import com.matejhacin.roomies.utils.GeneralUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.paperdb.Book;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements TaskCardClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
     SwipeRefreshLayout swipeRefreshLayout;
     // endregion
 
+    private TaskClient taskClient = new TaskClient();
     private User user;
     private Tasks tasks;
 
@@ -58,24 +64,35 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
         loadTasksList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Not the nicest way to do this, but we need to refresh whenever we get back to this activity
+        // In case we added or edited something
+        onRefresh();
+    }
+
     private void setupRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
-    public void onDoneClicked(String taskId, int position) {
-        // TODO Task done
+    public void onDoneClicked(Task task, int position) {
+        completeAndRemoveTask(task);
     }
 
     @Override
-    public void onEditClicked(String taskId, int position) {
-        // TODO Task edit
+    public void onEditClicked(Task task, int position) {
+        Intent intent = TaskActivity.getIntent(MainActivity.this, task);
+        startActivity(intent);
     }
 
     @OnClick(R.id.main_add_task_fab)
     protected void onAddTaskClicked() {
-        // TODO Task add
+        Intent intent = TaskActivity.getIntent(MainActivity.this, null);
+        startActivity(intent);
     }
 
     /**
@@ -84,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
     private void loadTasksList() {
         final MaterialDialog loadingDialog = GeneralUtil.getLoadingDialog(this);
         loadingDialog.show();
-        new TaskClient().getTasks(user.getRoom().getId(), new TasksListener() {
+        taskClient.getTasks(user.getRoom().getId(), new TasksListener() {
             @Override
             public void onSuccess(Tasks tasks) {
                 showTasks(tasks);
@@ -104,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
      */
     @Override
     public void onRefresh() {
-        new TaskClient().getTasks(user.getRoom().getId(), new TasksListener() {
+        taskClient.getTasks(user.getRoom().getId(), new TasksListener() {
             @Override
             public void onSuccess(Tasks tasks) {
                 showTasks(tasks);
@@ -143,5 +160,21 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
         recyclerView.setVisibility(View.GONE);
         emptyMessageTextView.setText(R.string.tasks_error_message);
         emptyMessageTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void completeAndRemoveTask(Task task) {
+        User user = Paper.book().read(Constants.KEY_USER);
+
+        taskClient.completeAndRemoveTask(task.getId(), user.getId(), new ResponseListener() {
+            @Override
+            public void onSuccess() {
+                onRefresh();
+            }
+
+            @Override
+            public void onFailure() {
+                Snackbar.make(recyclerView, R.string.unknown_error, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 }

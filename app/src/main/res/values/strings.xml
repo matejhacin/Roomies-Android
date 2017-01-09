@@ -16,5 +16,10 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="tasks_empty_message">There are no active tasks.\nBe the hero this group needs, and create a new one.</string>
     <string name="tasks_error_message">Something went wrong!\nUse swipe-to-refresh to try again.</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="award_points">Award points</string>
+    <string name="done">Done</string>
+    <string name="unknown_error">Oops! Something went wrong.</string>
 
 </resources>
