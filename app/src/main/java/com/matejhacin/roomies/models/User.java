@@ -24,6 +24,12 @@ public class User {
     @SerializedName("token")
     @Expose
     private String accessToken;
+    @SerializedName("points")
+    @Expose
+    private Integer points;
+    @SerializedName("tasksNumber")
+    @Expose
+    private Integer tasksNumber;
 
     public User(String username, String password, String roomName) {
         this(username, password, new Room(roomName));
@@ -49,5 +55,13 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public Integer getTasksNumber() {
+        return tasksNumber;
     }
 }

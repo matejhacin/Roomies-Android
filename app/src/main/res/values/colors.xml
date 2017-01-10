@@ -8,4 +8,16 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDevider">#BDBDBD</color>
     <color name="light_gray">#f1f1f1</color>
+    
+    <string-array name="random_colors">
+        <item>#F44336</item>
+        <item>#9C27B0</item>
+        <item>#4CAF50</item>
+        <item>#03A9F4</item>
+        <item>#009688</item>
+        <item>#CDDC39</item>
+        <item>#FF5722</item>
+        <item>#795548</item>
+        <item>#FFC107</item>
+    </string-array>
 </resources>
