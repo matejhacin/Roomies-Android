@@ -85,13 +85,18 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
 
     @Override
     public void onDoneClicked(Task task, int position) {
-        completeAndRemoveTask(task);
+        completeTask(task);
     }
 
     @Override
     public void onEditClicked(Task task, int position) {
         Intent intent = TaskActivity.getIntent(MainActivity.this, task);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDoneAndDeleteClicked(Task task, int position) {
+        completeAndRemoveTask(task);
     }
 
     @OnClick(R.id.main_add_task_fab)
@@ -154,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
             }
         }
 
-        if (tasks.getTasks().isEmpty()) {
+        if (filteredTasks.isEmpty()) {
             emptyMessageTextView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
@@ -177,6 +182,20 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
         User user = Paper.book().read(Constants.KEY_USER);
 
         taskClient.completeAndRemoveTask(task.getId(), user.getId(), new ResponseListener() {
+            @Override
+            public void onSuccess() {
+                onRefresh();
+            }
+
+            @Override
+            public void onFailure() {
+                Snackbar.make(recyclerView, R.string.unknown_error, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void completeTask(Task task) {
+        taskClient.completeTask(task.getId(), user.getId(), new ResponseListener() {
             @Override
             public void onSuccess() {
                 onRefresh();

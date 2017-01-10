@@ -57,6 +57,14 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
                 }
             }
         });
+        holder.doneAndDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(taskCardClickListener != null){
+                    taskCardClickListener.onDoneAndDeleteClicked(task, holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -80,6 +88,9 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
 
         @BindView(R.id.card_task_edit_button)
         Button editButton;
+
+        @BindView(R.id.card_task_done_and_delete_button)
+        Button doneAndDeleteButton;
 
         ViewHolder(View itemView) {
             super(itemView);

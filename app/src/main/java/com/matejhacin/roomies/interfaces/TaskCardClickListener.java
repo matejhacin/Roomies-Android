@@ -9,4 +9,6 @@ public interface TaskCardClickListener {
     void onDoneClicked(Task task, int position);
 
     void onEditClicked(Task task, int position);
+
+    void onDoneAndDeleteClicked(Task task, int position);
 }

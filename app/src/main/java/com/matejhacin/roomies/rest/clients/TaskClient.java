@@ -93,4 +93,21 @@ public class TaskClient {
         });
     }
 
+    public void completeTask(String taskId, String userId, final ResponseListener responseListener) {
+        Call<Effort> completeCall = RestClient.getInstance().roomiesService.completeTask(taskId, userId);
+        completeCall.enqueue(new RCallback<Effort>() {
+            @Override
+            public void onSuccess(Effort responseObject) {
+                if (responseListener != null)
+                    responseListener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (responseListener != null)
+                    responseListener.onFailure();
+            }
+        });
+    }
+
 }
