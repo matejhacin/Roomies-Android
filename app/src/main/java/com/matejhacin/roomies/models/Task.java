@@ -30,17 +30,19 @@ public class Task implements Serializable {
     @Expose
     private String assignedUser;
 
-    public Task(String title, String description, Integer value) {
+    public Task(String title, String description, Integer value, String assignedUser) {
         this.title = title;
         this.description = description;
         this.value = value;
+        this.assignedUser = assignedUser;
     }
 
-    public Task(String title, String description, Integer value, String roomId) {
+    public Task(String title, String description, Integer value, String roomId, String assignedUser) {
         this.title = title;
         this.description = description;
         this.value = value;
         this.roomId = roomId;
+        this.assignedUser = assignedUser;
     }
 
     public String getId() {

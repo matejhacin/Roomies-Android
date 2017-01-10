@@ -38,8 +38,8 @@ public class TaskClient {
         });
     }
 
-    public void createTask(String taskName, String additionalDescription, int awardPoints, String room, final TaskListener taskListener) {
-        Task newTask = new Task(taskName, additionalDescription, awardPoints, room);
+    public void createTask(String taskName, String additionalDescription, int awardPoints, String room, String assignedTo, final TaskListener taskListener) {
+        Task newTask = new Task(taskName, additionalDescription, awardPoints, room, assignedTo);
 
         Call<Task> newTaskCall = RestClient.getInstance().roomiesService.createTask(newTask);
         newTaskCall.enqueue(new RCallback<Task>() {
@@ -57,8 +57,8 @@ public class TaskClient {
         });
     }
 
-    public void updateTask(String taskId, String taskName, String additionalDescription, int awardPoints, final TaskListener taskListener) {
-        Task updatedTask = new Task(taskName, additionalDescription, awardPoints);
+    public void updateTask(String taskId, String taskName, String additionalDescription, int awardPoints, String assignedTo, final TaskListener taskListener) {
+        Task updatedTask = new Task(taskName, additionalDescription, awardPoints, assignedTo);
 
         Call<Void> updateTaskCall = RestClient.getInstance().roomiesService.updateTask(taskId, updatedTask);
         updateTaskCall.enqueue(new Callback<Void>() {

@@ -5,6 +5,8 @@ import com.matejhacin.roomies.models.Task;
 import com.matejhacin.roomies.models.Tasks;
 import com.matejhacin.roomies.models.User;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -43,4 +45,6 @@ public interface RoomiesService {
     @PUT("task/{taskId}/accomplish/{userId}")
     Call<Effort> completeTask(@Path("taskId") String taskId, @Path("userId") String userId);
 
+    @GET("getUsers/{roomId}")
+    Call<List<User>> getUsers(@Path("roomId") String roomId);
 }
