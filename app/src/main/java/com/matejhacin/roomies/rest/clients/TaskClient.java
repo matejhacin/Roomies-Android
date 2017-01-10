@@ -110,4 +110,22 @@ public class TaskClient {
         });
     }
 
+    public void deleteTask(String taskId, final ResponseListener responseListener) {
+        RestClient.getInstance().roomiesService.deleteTask(taskId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (responseListener != null) {
+                    responseListener.onSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (responseListener != null) {
+                    responseListener.onFailure();
+                }
+            }
+        });
+    }
+
 }
