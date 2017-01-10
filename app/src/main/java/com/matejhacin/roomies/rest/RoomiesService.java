@@ -6,6 +6,8 @@ import com.matejhacin.roomies.models.Tasks;
 import com.matejhacin.roomies.models.User;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -47,5 +49,8 @@ public interface RoomiesService {
 
     @GET("statistics/{roomId}")
     Call<ArrayList<User>> getStatistics(@Path("roomId") String roomId);
+
+    @GET("getUsers/{roomId}")
+    Call<List<User>> getUsers(@Path("roomId") String roomId);
 
 }

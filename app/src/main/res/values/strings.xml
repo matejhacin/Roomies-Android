@@ -21,5 +21,9 @@
     <string name="award_points">Award points</string>
     <string name="done">Done</string>
     <string name="unknown_error">Oops! Something went wrong.</string>
+    <string name="assign_description">Select a user to which this task will be assigned</string>
+    <string name="select">Select</string>
+    <string name="cancel">Cancel</string>
+    <string name="assign_no_one">no one</string>
 
 </resources>

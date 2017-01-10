@@ -13,7 +13,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.matejhacin.roomies.R;
 import com.matejhacin.roomies.models.User;
 import com.matejhacin.roomies.rest.clients.StatisticsClient;
-import com.matejhacin.roomies.rest.interfaces.UsersListener;
+import com.matejhacin.roomies.rest.interfaces.UserListListener;
 import com.matejhacin.roomies.utils.Constants;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.paperdb.Paper;
 
-public class StatisticsActivity extends AppCompatActivity implements UsersListener {
+public class StatisticsActivity extends AppCompatActivity implements UserListListener {
 
     @BindView(R.id.barChart) BarChart barChart;
 
