@@ -24,7 +24,7 @@ public class TaskClient {
         tasksCall.enqueue(new Callback<Tasks>() {
             @Override
             public void onResponse(Call<Tasks> call, Response<Tasks> response) {
-                if (response != null && response.body() != null && tasksListener != null) {
+                if (response != null && response.body() != null && response.body().getTasks() != null && tasksListener != null) {
                     tasksListener.onSuccess(response.body());
                 }
             }

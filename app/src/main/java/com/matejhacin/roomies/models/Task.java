@@ -26,6 +26,9 @@ public class Task implements Serializable {
     @SerializedName("room")
     @Expose
     private String roomId;
+    @SerializedName("assignedUser")
+    @Expose
+    private String assignedUser;
 
     public Task(String title, String description, Integer value) {
         this.title = title;
@@ -54,5 +57,9 @@ public class Task implements Serializable {
 
     public Integer getValue() {
         return value;
+    }
+
+    public String getAssignedUser() {
+        return assignedUser;
     }
 }

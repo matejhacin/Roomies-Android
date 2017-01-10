@@ -24,10 +24,12 @@ import com.matejhacin.roomies.rest.interfaces.TasksListener;
 import com.matejhacin.roomies.utils.Constants;
 import com.matejhacin.roomies.utils.GeneralUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.paperdb.Book;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements TaskCardClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
 
     private TaskClient taskClient = new TaskClient();
     private User user;
-    private Tasks tasks;
+    private boolean isFirstLaunch = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,10 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
 
         // Not the nicest way to do this, but we need to refresh whenever we get back to this activity
         // In case we added or edited something
-        onRefresh();
+        if (!isFirstLaunch) {
+            onRefresh();
+        }
+        isFirstLaunch = false;
     }
 
     private void setupRecyclerView() {
@@ -142,13 +147,19 @@ public class MainActivity extends AppCompatActivity implements TaskCardClickList
      * @param tasks
      */
     private void showTasks(Tasks tasks) {
-        MainActivity.this.tasks = tasks;
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks.getTasks()) {
+            if (task.getAssignedUser() != null && (task.getAssignedUser().isEmpty() || task.getAssignedUser().equals(user.getId()))) {
+                filteredTasks.add(task);
+            }
+        }
+
         if (tasks.getTasks().isEmpty()) {
             emptyMessageTextView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
             emptyMessageTextView.setVisibility(View.GONE);
-            recyclerView.setAdapter(new TasksRecyclerViewAdapter(tasks.getTasks(), MainActivity.this));
+            recyclerView.setAdapter(new TasksRecyclerViewAdapter(filteredTasks, MainActivity.this));
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
