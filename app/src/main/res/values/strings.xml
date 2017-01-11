@@ -25,5 +25,7 @@
     <string name="select">Select</string>
     <string name="cancel">Cancel</string>
     <string name="assign_no_one">no one</string>
+    <string name="number_of_points">Number of points</string>
+    <string name="percent_of_all_completed_tasks">% of all completed tasks</string>
 
 </resources>
